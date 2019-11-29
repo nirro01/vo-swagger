@@ -12,7 +12,7 @@ public class VOSwaggerProperties {
     private String version = "v1";
     private String title = "Microservice";
     private String description = "Microservice";
-    private Boolean domainInHeader = true;
+    private Boolean domainInHeader = false;
 
     public String getVersion() {
         return version;

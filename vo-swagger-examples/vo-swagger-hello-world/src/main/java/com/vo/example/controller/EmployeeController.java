@@ -1,18 +1,11 @@
 package com.vo.example.controller;
 
-import java.util.List;
-
 import com.vo.example.dto.Employee;
 import com.vo.example.repository.EmployeeRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @RestController
 class EmployeeController {
@@ -24,26 +17,26 @@ class EmployeeController {
     }
 
     @GetMapping("/employees")
-    Iterable<Employee> all() {
-        return repository.findAll();
+    List<Employee> getAll() {
+        return (List<Employee>) repository.findAll();
     }
 
     @PostMapping("/employees")
-    Employee newEmployee(@RequestBody Employee newEmployee) {
+    Employee postEmployee(@RequestBody Employee newEmployee) {
         return repository.save(newEmployee);
     }
 
     // Single item
 
     @GetMapping("/employees/{id}")
-    Employee one(@PathVariable Long id) {
+    Employee getById(@PathVariable Long id) {
 
         return repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.valueOf(id)));
     }
 
     @PutMapping("/employees/{id}")
-    Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
+    Employee putEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(employee -> {
